@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JavaScript Assignments – Live Demo</title>
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--text:#1b2733;--muted:#5b6b7b;--accent:#2f5d9e;--accent-text:#fff;--border:#d5dce5;--code:#f0f3f7;--out-bg:#0f2237;--out-text:#d8ecff}
+@media (prefers-color-scheme:dark){:root{--bg:#10161d;--card:#18212b;--text:#e6edf3;--muted:#9aa9b8;--accent:#5b9bf0;--accent-text:#0b1520;--border:#2b3846;--code:#111a23;--out-bg:#0a121b;--out-text:#d8ecff}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{padding:28px 20px 8px;max-width:980px;margin:0 auto}
+h1{margin:0 0 4px;font-size:1.7rem}
+header p{margin:0;color:var(--muted)}
+nav{display:flex;flex-wrap:wrap;gap:8px;max-width:980px;margin:16px auto 0;padding:0 20px}
+nav button{border:1px solid var(--border);background:var(--card);color:var(--text);padding:8px 14px;border-radius:999px;cursor:pointer;font:inherit;font-size:.9rem}
+nav button[aria-selected="true"]{background:var(--accent);color:var(--accent-text);border-color:var(--accent)}
+main{max-width:980px;margin:16px auto 40px;padding:0 20px;display:grid;gap:16px}
+@media(min-width:820px){main{grid-template-columns:1fr 1fr}}
+section{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:16px;min-width:0}
+h2{margin:0 0 2px;font-size:1.1rem}
+.sub{color:var(--muted);margin:0 0 10px;font-size:.9rem}
+pre{margin:0;padding:12px;border-radius:8px;overflow-x:auto;font:13px/1.5 ui-monospace,Menlo,Consolas,monospace;white-space:pre}
+#code{background:var(--code);max-height:460px;overflow:auto}
+#out{background:var(--out-bg);color:var(--out-text);min-height:160px;white-space:pre-wrap;word-break:break-word}
+.bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;gap:8px}
+.run{background:var(--accent);color:var(--accent-text);border:0;padding:8px 18px;border-radius:8px;font:inherit;font-weight:600;cursor:pointer}
+.note{font-size:.85rem;color:var(--muted);margin:10px 0 0}
+</style>
+</head>
+<body>
+<header>
+  <h1>JavaScript Assignments</h1>
+  <p>Pick an assignment, read the code, press <b>Run</b>. Output appears on the page. Assignments that use <code>prompt()</code> will open a dialog.</p>
+</header>
+<nav id="tabs" role="tablist"></nav>
+<main>
+  <section>
+    <h2 id="title"></h2><p class="sub" id="sub"></p>
+    <pre id="code"></pre>
+  </section>
+  <section>
+    <div class="bar"><h2>Console Output</h2><button class="run" id="run">Run</button></div>
+    <pre id="out">Press Run to execute.</pre>
+    <p class="note">Tip: you can also open the browser console (F12) to see the same logs.</p>
+  </section>
+</main>
+<script type="text/plain" id="code0" data-title="Assignment 1" data-sub="Variables & Data Types">
+// Assignment 1: Variables, Data Types, and Console Operations
+var name = "Alice";                          // var   -> function-scoped, can be re-declared
+let age = 25;                                // let   -> block-scoped, can be reassigned
+const isEmployed = true;                     // const -> block-scoped, cannot be reassigned
+const skills = ["HTML", "CSS", "JavaScript"]; // arrays are objects in JavaScript
+
+console.log(`Name: ${name} (Type: ${typeof name})`);
+console.log(`Age: ${age} (Type: ${typeof age})`);
+console.log(`Is Employed: ${isEmployed} (Type: ${typeof isEmployed})`);
+console.log(`Skills: ${JSON.stringify(skills)} (Type: ${typeof skills})`);
+</script>
+<script type="text/plain" id="code1" data-title="Assignment 2" data-sub="Tip Calculator (prompt)">
+// Assignment 2: Operators, Expressions, and Input Handling
+// prompt() always returns a STRING (or null), so we convert explicitly with Number().
+let subtotal = Number(prompt("Enter the bill amount ($):", "100"));
+let tipPercent = Number(prompt("Enter the tip percentage (%):", "15"));
+
+if (Number.isNaN(subtotal) || Number.isNaN(tipPercent)) {
+  console.log("Invalid input: please enter numbers only.");
+} else {
+  let tip = subtotal * tipPercent / 100; // arithmetic operators
+  let total = subtotal;                  // start with the subtotal...
+  total += tip;                          // ...assignment operator: total = total + tip
+
+  console.log(`Subtotal: $${subtotal}`);
+  console.log(`Tip Percentage: ${tipPercent}%`);
+  console.log(`Calculated Tip: $${tip}`);
+  console.log(`Total Amount to Pay: $${total}`);
+}
+</script>
+<script type="text/plain" id="code2" data-title="Assignment 3" data-sub="Conditional Logic (prompt)">
+// Assignment 3: Conditional Logic Implementation
+const score = Number(prompt("Enter your test score (0-100):", "85"));
+
+if (Number.isNaN(score) || score < 0 || score > 100) {
+  // if...else: validate the input first
+  console.log("Invalid score. Please enter a number between 0 and 100.");
+} else {
+  // switch(true) lets each case hold a condition, so ranges work
+  let grade;
+  switch (true) {
+    case score >= 90: grade = "A"; break;
+    case score >= 80: grade = "B"; break;
+    case score >= 70: grade = "C"; break;
+    case score >= 60: grade = "D"; break;
+    default:          grade = "F";
+  }
+
+  // ternary operator: condition ? valueIfTrue : valueIfFalse
+  const status = score >= 60 ? "Passed" : "Failed";
+
+  console.log(`Score: ${score}`);
+  console.log(`Grade: ${grade}`);
+  console.log(`Status: ${status}`);
+}
+</script>
+<script type="text/plain" id="code3" data-title="Assignment 4" data-sub="Loops">
+// Assignment 4: Loop Control Structures
+
+// 1) for loop: multiplication table of 5
+console.log("--- Multiplication Table of 5 ---");
+for (let i = 1; i <= 5; i++) {
+  console.log(`5 x ${i} = ${5 * i}`);
+}
+
+// 2) while loop + break: first number > 10 divisible by 6
+console.log("--- First number > 10 divisible by 6 ---");
+let n = 11;
+while (true) {
+  if (n % 6 === 0) {
+    console.log(`Found: ${n}`);
+    break; // stop the loop as soon as we find it
+  }
+  n++;
+}
+
+// 3) do...while + continue: skip numbers (here, skip even numbers 1-10)
+console.log("--- do...while with continue (odd numbers 1-10) ---");
+let k = 0;
+do {
+  k++;
+  if (k % 2 === 0) continue; // skip even numbers, jump to the condition check
+  console.log(k);
+} while (k < 10);
+</script>
+<script type="text/plain" id="code4" data-title="Assignment 5" data-sub="Functions & Scope">
+// Assignment 5: Function Architecture and Scope
+
+// Standard (regular) function with default parameters
+function rectangleArea(length = 5, width = 4) {
+  return length * width;
+}
+
+// Arrow function with default parameters
+const rectangleAreaArrow = (length = 5, width = 4) => length * width;
+
+console.log(`Standard Function Area (Default 5x4): ${rectangleArea()}`);
+console.log(`Arrow Function Area (Custom 10x3): ${rectangleAreaArrow(10, 3)}`);
+
+// Scope demonstration
+{
+  let blockVar = "I only exist inside this block";
+  var leaksOut = "var ignores block scope";   // var is NOT block scoped
+}
+console.log(leaksOut);                         // works: var leaks out of the block
+
+try {
+  console.log(blockVar);                       // let is block scoped -> error
+} catch (error) {
+  console.log(`Scope Test Error: ${error.name}: ${error.message}`);
+}
+
+function localScopeDemo() {
+  const secret = "function-scoped";
+  return secret;
+}
+localScopeDemo();
+try {
+  console.log(secret);                         // secret lives only inside the function
+} catch (error) {
+  console.log(`Function Scope Error: ${error.name}: ${error.message}`);
+}
+</script>
+<script type="text/plain" id="code5" data-title="Assignment 6" data-sub="Arrays & Objects">
+// Assignment 6: Arrays, Objects, and Core Methods
+const products = [
+  { name: "Laptop",   price: 800 },
+  { name: "Mouse",    price: 25 },
+  { name: "Keyboard", price: 45 }
+];
+
+console.log("--- All Products (forEach) ---");
+products.forEach(p => console.log(`Item: ${p.name} - Price: $${p.price}`));
+
+console.log("--- Filtered Products (Price < $50) ---");
+const cheap = products.filter(p => p.price < 50);
+console.log(cheap);
+
+console.log("--- Mapped Product Tags (map) ---");
+const tags = products.map(p => `${p.name.toUpperCase()} costs $${p.price}`);
+console.log(tags);
+</script>
+<script type="text/plain" id="code6" data-title="Project" data-sub="Inventory System (prompt)">
+// Overall Project: Inventory System
+// Combines: Functions & Scope (regular + arrow) and Array Methods (forEach, filter, map)
+
+console.log("--- Initializing Inventory System ---");
+
+const inventory = [
+  { name: "Laptop", price: 800 },
+  { name: "Mouse",  price: 25 }
+];
+
+// --- User adds an item via prompt() ---
+const newName  = prompt("Enter item name:", "Monitor");
+const newPrice = Number(prompt("Enter item price ($):", "150"));
+if (newName && !Number.isNaN(newPrice)) {
+  inventory.push({ name: newName, price: newPrice });
+  console.log(`[Prompt executed: User adds "${newName}" at "$${newPrice}"]`);
+}
+
+// --- Regular function: total inventory value ---
+function calculateTotal(items) {
+  let total = 0;                       // local variable, hidden from outside code
+  for (const item of items) total += item.price;
+  return total;
+}
+
+// --- Arrow functions with default tax/discount parameters ---
+const applyTax      = (amount, taxRate = 0)      => amount + amount * taxRate / 100;
+const applyDiscount = (amount, discountRate = 0) => amount - amount * discountRate / 100;
+const categorize    = price => price >= 500 ? "Premium" : price >= 100 ? "Standard" : "Budget";
+
+// --- forEach: log the inventory sheet ---
+console.log("--- Processing Inventory Roster (forEach) ---");
+inventory.forEach(item => {
+  console.log(`* Item: ${item.name} ($${item.price}) -> Category: ${categorize(item.price)}`);
+});
+
+// --- Financial analytics ---
+console.log("--- Financial Analytics ---");
+console.log(`Total Inventory Value: $${calculateTotal(inventory)}`);
+
+// filter: items under $200
+const affordable = inventory.filter(item => item.price < 200).map(item => item.name);
+console.log(`Filtered Affordable Items (Under $200):`, affordable);
+
+// map: formatted report
+const report = inventory.map(item => `${item.name.toUpperCase()}: $${item.price}`);
+console.log("Formatted Report List:", report);
+
+// Bonus: custom tax / discount parameters
+const total = calculateTotal(inventory);
+console.log(`With 10% discount then 18% tax: $${applyTax(applyDiscount(total, 10), 18).toFixed(2)}`);
+</script>
+<script>
+const ids = [...document.querySelectorAll('script[id^="code"]')];
+const tabs = document.getElementById('tabs'), codeEl = document.getElementById('code'), out = document.getElementById('out');
+let current = 0;
+
+function fmt(v, top) {
+  if (typeof v === 'string') return top ? v : "'" + v + "'";
+  if (Array.isArray(v)) return v.length ? '[ ' + v.map(x => fmt(x)).join(', ') + ' ]' : '[]';
+  if (v && typeof v === 'object') return '{ ' + Object.entries(v).map(([k, x]) => k + ': ' + fmt(x)).join(', ') + ' }';
+  return String(v);
+}
+
+function select(i) {
+  current = i;
+  [...tabs.children].forEach((b, n) => b.setAttribute('aria-selected', n === i));
+  const s = ids[i];
+  document.getElementById('title').textContent = s.dataset.title;
+  document.getElementById('sub').textContent = s.dataset.sub;
+  codeEl.textContent = s.textContent.trim();
+  out.textContent = 'Press Run to execute.';
+}
+
+ids.forEach((s, i) => {
+  const b = document.createElement('button');
+  b.textContent = s.dataset.title;
+  b.setAttribute('role', 'tab');
+  b.onclick = () => select(i);
+  tabs.appendChild(b);
+});
+
+document.getElementById('run').onclick = () => {
+  const lines = [], realLog = console.log;
+  console.log = (...args) => { lines.push(args.map(a => fmt(a, true)).join(' ')); realLog.apply(console, args); };
+  try { new Function(ids[current].textContent)(); }
+  catch (e) { lines.push('Uncaught ' + e.name + ': ' + e.message); }
+  finally { console.log = realLog; }
+  out.textContent = lines.length ? lines.join('\n') : '(no output)';
+};
+select(0);
+</script>
+</body>
+</html>
